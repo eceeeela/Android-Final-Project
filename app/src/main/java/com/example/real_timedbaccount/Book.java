@@ -1,6 +1,5 @@
 package com.example.real_timedbaccount;
 
-
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -13,6 +12,7 @@ public class Book implements Parcelable {
     private String previewLink;
     private String dueDate;
     private boolean isSelected;
+    private boolean isRented; // Added rented status
 
     // Constructor for the Book class
     public Book(String title, String author, String isbn, String imageURL, String synopsis, String previewLink, String dueDate) {
@@ -23,6 +23,7 @@ public class Book implements Parcelable {
         this.synopsis = synopsis;
         this.previewLink = previewLink;
         this.dueDate = dueDate;
+        this.isRented = false; // Default is not rented
     }
 
     // Parcelable constructor
@@ -34,6 +35,7 @@ public class Book implements Parcelable {
         synopsis = in.readString();
         previewLink = in.readString();
         dueDate = in.readString();
+        isRented = in.readByte() != 0; // Read rented status
     }
 
     public static final Creator<Book> CREATOR = new Creator<Book>() {
@@ -57,6 +59,7 @@ public class Book implements Parcelable {
         dest.writeString(synopsis);
         dest.writeString(previewLink);
         dest.writeString(dueDate);
+        dest.writeByte((byte) (isRented ? 1 : 0)); // Write rented status
     }
 
     @Override
@@ -65,7 +68,6 @@ public class Book implements Parcelable {
     }
 
     // Getter and Setter methods for the fields
-
     public String getTitle() {
         return title;
     }
@@ -129,5 +131,12 @@ public class Book implements Parcelable {
     public void setSelected(boolean selected) {
         isSelected = selected;
     }
-}
 
+    public boolean isRented() {
+        return isRented;
+    }
+
+    public void setRented(boolean rented) {
+        isRented = rented;
+    }
+}

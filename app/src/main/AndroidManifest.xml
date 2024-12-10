@@ -16,6 +16,9 @@
         android:theme="@style/Theme.RealtimeDBAccount"
         tools:targetApi="31">
         <activity
+            android:name=".BookshelfActivity"
+            android:exported="false" />
+        <activity
             android:name=".ReturnBookActivity"
             android:exported="false" />
         <activity
